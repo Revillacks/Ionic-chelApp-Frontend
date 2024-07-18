@@ -33,7 +33,7 @@
           <p class="error">{{getFieldError("password")}}</p>
           }
           <div class="submit-group">
-            <ion-button color="green-primary" type="submit" expand="block" (click)="iniciar()" [disabled]="!formLogin.valid">
+            <ion-button color="green-primary" type="submit" expand="block" (click)="iniciar(true)" [disabled]="!formLogin.valid">
               <span style="color: #ffffff !important;">
                 Iniciar sesión
               </span>
@@ -41,7 +41,7 @@
             <a href="/" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
           </div>
           <div class="register-group">
-            <p class="register-text" [routerLink]="['/auth/register']">¿No tienes  una cuenta?</p>
+            <p class="register-text" [routerLink]="['/auth/register/register.page.ts']">¿No tienes  una cuenta?</p>
           </div>
         </form>
       </div>

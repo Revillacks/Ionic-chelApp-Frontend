@@ -6,6 +6,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import {add, eyeOffOutline, eyeOutline, lockClosedOutline, mailOutline} from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomePage {
   passsInputType: string = "";
 
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder, private alertController: AlertController
   ) {
     this.formLogin = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -73,8 +74,30 @@ export class HomePage {
     return null;
     }
 
-  iniciar() {
-    // Lógica para iniciar sesión
+    async iniciar(loginExitoso: boolean) {
+      if (loginExitoso) {
+        const alert = await this.alertController.create({
+          header: 'Sesión Exitosa',
+          message: 'Has iniciado sesión correctamente.',
+          buttons: [{
+            text: 'OK',
+            handler: () => {
+              this.router.navigate(['/tabs/tab2']);
+            }
+          }]
+        });
+
+        await alert.present();
+      } else {
+        const alert = await this.alertController.create({
+          header: 'Error de inicio de sesión',
+          message: 'Por favor, verifica tus credenciales e inténtalo de nuevo.',
+          buttons: ['OK']
+        });
+
+        await alert.present();
+      }
+    }
   }
 
-}
+
