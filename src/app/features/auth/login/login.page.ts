@@ -1,10 +1,11 @@
+
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonLabel, IonItem, IonIcon, IonButton, IonInput, IonGrid, IonRow, IonCol, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import {add, eyeOffOutline, eyeOutline, lockClosedOutline, mailOutline} from 'ionicons/icons';
+import { add, eyeOffOutline, eyeOutline, lockClosedOutline, mailOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { AlertController } from '@ionic/angular';
 
@@ -13,13 +14,14 @@ import { AlertController } from '@ionic/angular';
   templateUrl: 'login.page.html',
   styleUrls: ['login.page.scss'],
   standalone: true,
-  imports: [RouterLink,IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonImg, IonCol, IonRow, IonGrid, IonInput, IonButton, IonIcon, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterLink, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonImg, IonCol, IonRow, IonGrid, IonInput, IonButton, IonIcon, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class HomePage {
-  private router:Router = inject(Router);
-  formLogin! : FormGroup;
+  private router: Router = inject(Router);
+  formLogin!: FormGroup;
   showPassword: boolean = false;
-  passsInputType: string = "";
+  passsInputType: string = "password";
+  alertController: AlertController ;
 
   constructor(
     private fb: FormBuilder, private alertController: AlertController
@@ -35,40 +37,38 @@ export class HomePage {
       eyeOutline,
       eyeOffOutline
     });
-
-    this.passsInputType = 'password';
   }
 
-  toggleShow(){
+  toggleShow() {
     this.showPassword = !this.showPassword;
 
-    if(this.passsInputType === 'password'){
+    if (this.passsInputType === 'password') {
       this.passsInputType = 'text';
-    }else{
-    this.passsInputType = 'password';
+    } else {
+      this.passsInputType = 'password';
     }
   }
 
-  isValidControl(ctrl: string){
-    return this.formLogin.controls[ctrl] && (this.formLogin.controls[ctrl].touched || this.formLogin.controls[ctrl].dirty) ;
+  isValidControl(ctrl: string) {
+    return this.formLogin.controls[ctrl] && (this.formLogin.controls[ctrl].touched || this.formLogin.controls[ctrl].dirty);
   }
 
-  getFieldError(field: string){
-    if(!this.formLogin.controls[field]) return null;
+  getFieldError(field: string) {
+    if (!this.formLogin.controls[field]) return null;
     const errors = this.formLogin.controls[field].errors || {};
 
-    for (const key of Object.keys(errors)){
-      switch(key){
-        case'required':
-          return 'Este campo es obligatorio'
-        case'minlength':
-          return 'Minimo de caracteres requerido'
-        case'maxlength':
-          return 'Maximo de caracteres excedido'
-        case'email':
-          return 'Email no valido'
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          return 'Este campo es obligatorio';
+        case 'minlength':
+          return 'Mínimo de caracteres requerido';
+        case 'maxlength':
+          return 'Máximo de caracteres excedido';
+        case 'email':
+          return 'Email no válido';
         case 'pattern':
-          return 'Minimo una mayuscula y caracter especial'
+          return 'Mínimo una mayúscula y carácter especial';
       }
     }
     return null;
