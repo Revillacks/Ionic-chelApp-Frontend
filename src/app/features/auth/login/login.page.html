@@ -21,7 +21,7 @@
           }
           <ion-item>
             <ion-label position="floating">Contraseña:</ion-label>
-            <ion-input required [type]="passsInputType" formControlName="password" maxlength="12"></ion-input>
+            <ion-input required [type]="passInputType" formControlName="password" maxlength="12"></ion-input>
             <ion-icon
               [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
               slot="end"
@@ -33,7 +33,7 @@
           <p class="error">{{getFieldError("password")}}</p>
           }
           <div class="submit-group">
-            <ion-button color="green-primary" type="submit" expand="block" (click)="iniciar()" [disabled]="!formLogin.valid">
+            <ion-button color="green-primary" type="submit" expand="block" (click)="iniciar(true)" [disabled]="!formLogin.valid">
               <span style="color: #ffffff !important;">
                 Iniciar sesión
               </span>
