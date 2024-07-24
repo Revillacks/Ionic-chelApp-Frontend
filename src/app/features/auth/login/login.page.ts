@@ -1,9 +1,7 @@
-
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonLabel, IonItem, IonIcon, IonButton, IonInput, IonGrid, IonRow, IonCol, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { add, eyeOffOutline, eyeOutline, lockClosedOutline, mailOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -12,19 +10,22 @@ import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: 'login.page.html',
-  styleUrls: ['login.page.scss'],
   standalone: true,
-  imports: [RouterLink, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonImg, IonCol, IonRow, IonGrid, IonInput, IonButton, IonIcon, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    RouterLink, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonImg, IonCol, IonRow, IonGrid, IonInput, IonButton, IonIcon, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule
+  ],
 })
+
+
 export class HomePage {
   private router: Router = inject(Router);
-  formLogin!: FormGroup;
+  formLogin: FormGroup;
   showPassword: boolean = false;
-  passsInputType: string = "password";
-  alertController: AlertController = inject(AlertController);
+  passInputType: string = "password";
+  private alertController: AlertController = inject(AlertController);
 
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.formLogin = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -41,12 +42,7 @@ export class HomePage {
 
   toggleShow() {
     this.showPassword = !this.showPassword;
-
-    if (this.passsInputType === 'password') {
-      this.passsInputType = 'text';
-    } else {
-      this.passsInputType = 'password';
-    }
+    this.passInputType = this.showPassword ? 'text' : 'password';
   }
 
   isValidControl(ctrl: string) {
@@ -74,33 +70,20 @@ export class HomePage {
     return null;
   }
 
-
   async iniciar(loginExitoso: boolean) {
-    if (loginExitoso) {
-      // Muestra un cuadro de mensaje de sesión exitosa
-      const alert = await this.alertController.create({
-        header: 'Sesión Exitosa',
-        message: 'Has iniciado sesión correctamente.',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            // Redirige a la tab2 después de cerrar la alerta
+    const alert = await this.alertController.create({
+      header: loginExitoso ? 'Sesión Exitosa' : 'Error de inicio de sesión',
+      message: loginExitoso ? 'Has iniciado sesión correctamente.' : 'Por favor, verifica tus credenciales e inténtalo de nuevo.',
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          if (loginExitoso) {
             this.router.navigate(['/tabs/tab2']);
           }
-        }]
-      });
+        }
+      }]
+    });
 
-      await alert.present();
-    } else {
-      // Muestra un cuadro de mensaje de error
-      const alert = await this.alertController.create({
-        header: 'Error de inicio de sesión',
-        message: 'Por favor, verifica tus credenciales e inténtalo de nuevo.',
-        buttons: ['OK']
-      });
-
-      await alert.present();
-    }
+    await alert.present();
   }
-  }
-
+}
