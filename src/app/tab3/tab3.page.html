@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Carrito de Compras
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,34 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Carrito de Compras</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div class="cart-container">
+    <div class="cart-row">
+      <div class="cart-item">
+        <img src="assets/images/si.jpg" alt="Imagen del carrito" class="cart-image" />
+        <h2 class="cart-title">Nombre del Elemento</h2>
+        <p class="cart-price">$Precio</p>
+        <p class="cart-description">Descripción del elemento. Aquí puedes agregar más detalles sobre el producto.</p>
+        <div class="quantity-container">
+          <button class="quantity-button">-</button>
+          <span class="quantity">1</span>
+          <button class="quantity-button">+</button>
+        </div>
+        <button class="remove-button">Eliminar</button>
+      </div>
+
+
+
+     
+    </div>
+
+
+    <div class="cart-total">
+      <h3>Total: $Total</h3>
+      <button class="checkout-button">Proceder al Pago</button>
+    </div>
+  </div>
 </ion-content>
