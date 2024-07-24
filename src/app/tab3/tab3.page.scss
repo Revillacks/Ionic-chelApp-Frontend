@@ -1,0 +1,101 @@
+ion-content {
+  .cart-container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .cart-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+      gap: 16px; // Espacio entre los elementos del carrito
+    }
+
+    .cart-item {
+      width: calc(25% - 16px); // 4 columnas en pantallas grandes
+      text-align: center;
+      background-color: #333; // Fondo oscuro
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      padding-bottom: 80px; // Espacio para los botones
+      box-sizing: border-box;
+
+      @media (max-width: 1200px) {
+        width: calc(33.33% - 16px); // 3 columnas en pantallas medianas
+      }
+
+      @media (max-width: 900px) {
+        width: calc(50% - 16px); // 2 columnas en pantallas pequeñas
+      }
+
+      @media (max-width: 600px) {
+        width: 100%; // 1 columna en pantallas muy pequeñas
+      }
+
+      .cart-image {
+        width: 100%;
+        height: auto;
+      }
+
+      .cart-title, .cart-price, .cart-description {
+        color: white;
+        margin: 8px 0;
+      }
+
+      .quantity-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin: 8px 0;
+
+        .quantity-button {
+          background-color: #fbc02d; // Amarillo
+          color: white;
+          border: none;
+          border-radius: 50%;
+          padding: 5px 10px;
+          cursor: pointer;
+        }
+
+        .quantity {
+          font-size: 1rem;
+          color: white;
+        }
+      }
+
+      .remove-button {
+        background-color: #795548; // Café madera
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+    }
+
+    .cart-total {
+      width: 100%;
+      text-align: center;
+      margin-top: 16px;
+
+      h3 {
+        color: white;
+        margin-bottom: 16px;
+      }
+
+      .checkout-button {
+        background-color: #fbc02d; // Amarillo
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}

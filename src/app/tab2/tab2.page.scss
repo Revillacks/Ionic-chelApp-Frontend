@@ -1,0 +1,82 @@
+.menu-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px; // Espacio entre los elementos
+}
+
+.menu-item {
+  width: calc(25% - 16px); // 4 columnas en pantallas grandes
+  text-align: center;
+  background-color: #333; // Fondo oscuro
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 60px; // Ajusta el espacio para los botones
+  box-sizing: border-box;
+
+  @media (max-width: 1200px) {
+    width: calc(33.33% - 16px); // 3 columnas en pantallas medianas
+  }
+
+  @media (max-width: 900px) {
+    width: calc(50% - 16px); // 2 columnas en pantallas pequeñas
+  }
+
+  @media (max-width: 600px) {
+    width: 100%; // 1 columna en pantallas muy pequeñas
+  }
+}
+
+.menu-image {
+  width: 100%;
+  height: auto;
+}
+
+.menu-title, .menu-price, .menu-description {
+  color: white;
+  margin: 8px 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+}
+
+.custom-button {
+  background-color: #6a1b9a; // Color del botón
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.custom-button ion-icon {
+  margin-right: 5px;
+  font-size: 1.2rem;
+}
+
+.primary {
+  background-color: #fbc02d; // Amarillo
+}
+
+.secondary {
+  background-color: #795548; // Café madera
+}
