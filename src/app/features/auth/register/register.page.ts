@@ -12,6 +12,7 @@ import { callOutline, lockClosedOutline, mailOutline, peopleCircleOutline } from
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
   standalone: true,
   imports: [IonNote,
     RouterLink, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonImg, IonCol, IonRow, IonGrid, IonInput, IonButton, IonIcon, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule
@@ -69,4 +70,5 @@ export class RegisterPage {
     }
   }
 }
+
 
