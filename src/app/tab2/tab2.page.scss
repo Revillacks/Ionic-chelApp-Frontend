@@ -10,29 +10,29 @@
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  gap: 16px; // Espacio entre los elementos
+  gap: 16px;
 }
 
 .menu-item {
-  width: calc(25% - 16px); // 4 columnas en pantallas grandes
+  width: calc(25% - 16px);
   text-align: center;
-  background-color: #333; // Fondo oscuro
+  background-color: #333;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  padding-bottom: 60px; // Ajusta el espacio para los botones
+  padding-bottom: 60px;
   box-sizing: border-box;
 
   @media (max-width: 1200px) {
-    width: calc(33.33% - 16px); // 3 columnas en pantallas medianas
+    width: calc(33.33% - 16px);
   }
 
   @media (max-width: 900px) {
-    width: calc(50% - 16px); // 2 columnas en pantallas pequeñas
+    width: calc(50% - 16px);
   }
 
   @media (max-width: 600px) {
-    width: 100%; // 1 columna en pantallas muy pequeñas
+    width: 100%;
   }
 }
 
@@ -57,7 +57,7 @@
 }
 
 .custom-button {
-  background-color: #6a1b9a; // Color del botón
+  background-color: #6a1b9a;
   color: white;
   border: none;
   border-radius: 20px;
@@ -74,9 +74,9 @@
 }
 
 .primary {
-  background-color: #fbc02d; // Amarillo
+  background-color: #fbc02d;
 }
 
 .secondary {
-  background-color: #795548; // Café madera
+  background-color: #795548; 
 }

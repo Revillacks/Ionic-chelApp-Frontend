@@ -10,29 +10,29 @@ ion-content {
       flex-wrap: wrap;
       justify-content: space-between;
       width: 100%;
-      gap: 16px; // Espacio entre los elementos del carrito
+      gap: 16px;
     }
 
     .cart-item {
-      width: calc(25% - 16px); // 4 columnas en pantallas grandes
+      width: calc(25% - 16px);
       text-align: center;
-      background-color: #333; // Fondo oscuro
+      background-color: #333;
       border-radius: 10px;
       overflow: hidden;
       position: relative;
-      padding-bottom: 80px; // Espacio para los botones
+      padding-bottom: 80px;
       box-sizing: border-box;
 
       @media (max-width: 1200px) {
-        width: calc(33.33% - 16px); // 3 columnas en pantallas medianas
+        width: calc(33.33% - 16px);
       }
 
       @media (max-width: 900px) {
-        width: calc(50% - 16px); // 2 columnas en pantallas pequeñas
+        width: calc(50% - 16px);
       }
 
       @media (max-width: 600px) {
-        width: 100%; // 1 columna en pantallas muy pequeñas
+        width: 100%;
       }
 
       .cart-image {
@@ -53,7 +53,7 @@ ion-content {
         margin: 8px 0;
 
         .quantity-button {
-          background-color: #fbc02d; // Amarillo
+          background-color: #fbc02d;
           color: white;
           border: none;
           border-radius: 50%;
@@ -68,7 +68,7 @@ ion-content {
       }
 
       .remove-button {
-        background-color: #795548; // Café madera
+        background-color: #795548;
         color: white;
         border: none;
         border-radius: 20px;
@@ -89,7 +89,7 @@ ion-content {
       }
 
       .checkout-button {
-        background-color: #fbc02d; // Amarillo
+        background-color: #fbc02d;
         color: white;
         border: none;
         border-radius: 20px;
