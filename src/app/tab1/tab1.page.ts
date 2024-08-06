@@ -10,5 +10,7 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent],
 })
 export class Tab1Page {
-  constructor() {}
+  constructor() {
+
+  }
 }
