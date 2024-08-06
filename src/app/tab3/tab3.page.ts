@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../services/cart.service';
@@ -21,7 +21,7 @@ export class Tab3Page {
   cartItems: CartItem[] = [];
   total: number = 0;
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private toastController: ToastController) {
     this.loadCart();
   }
 
@@ -30,9 +30,19 @@ export class Tab3Page {
     this.total = this.cartService.getTotal();
   }
 
+  async presentRemoveToast() {
+    const toast = await this.toastController.create({
+      message: 'Producto eliminado del carrito',
+      duration: 2000, // duración en milisegundos
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
   removeFromCart(index: number) {
     this.cartService.removeFromCart(index);
     this.loadCart();
+    this.presentRemoveToast();
   }
 
   clearCart() {
