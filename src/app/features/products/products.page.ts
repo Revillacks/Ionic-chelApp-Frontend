@@ -27,4 +27,9 @@ export class ProductsPage {
   receiveMessage($event: any) {
     this.searchProductsByCategory($event)
   }
+  handleInputSearch(event: any){
+    const query = event.target.value.toLowerCase()
+    this.productsService.searchProductByName(query)
+  }
+
 }

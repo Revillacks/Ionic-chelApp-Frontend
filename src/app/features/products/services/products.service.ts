@@ -47,7 +47,12 @@ export class ProductsService {
   }
 
   searchProductByName(name: string) {
-    this.http.get<Product[]>(`${environment.API_URL}/products/search?termino=${name}`)
+    this.http.get<Product[]>(`${environment.API_URL}/products/search?termino=${name}`).subscribe(res => {
+      this.#state.set({
+        loading: false,
+        products: res
+      })
+    })
   }
 
   saveProduct(data: { [key: string]: any }) {

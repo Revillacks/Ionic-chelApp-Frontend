@@ -1,6 +1,6 @@
 <div class="container">
   <h2 style="color: white;">Menu</h2>
-  <ion-searchbar animated="true" placeholder="Search products" show-clear-button="focus"></ion-searchbar>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInputSearch($event)"  animated="true" placeholder="Search products" show-clear-button="focus"></ion-searchbar>
   <p style="color: white;">Categories</p>
   <app-chips-category (categoryEvent)="receiveMessage($event)" />
   <div class="list-products">
