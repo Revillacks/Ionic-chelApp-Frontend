@@ -94,6 +94,11 @@
           </ion-row>
         </ion-grid>
         <ion-button expand="block" [disabled]="!registroForm.valid" (click)="registrar()">Registrarse</ion-button>
+
+        <div class="register-group">
+          <p class="register-text" [routerLink]="['/login']">Iniciar sesión</p>
+        </div>
+
       </form>
     </ion-card-content>
   </ion-card>

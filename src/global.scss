@@ -295,3 +295,28 @@ ion-fab-button::part(native) {
   color:red;
   display: flex;
 }
+
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-icon {
+  margin-left: 8px;
+}
+.select-right {
+  position: relative;
+}
+
+.select-right ion-select::part(icon) {
+  right: 16px; /* Ajusta este valor según sea necesario */
+  left: auto; /* Asegúrate de que el valor 'left' sea auto */
+  position: absolute;
+}

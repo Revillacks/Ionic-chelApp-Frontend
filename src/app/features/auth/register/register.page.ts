@@ -6,16 +6,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonLabel, IonItem, IonIcon, IonButton, IonInput, IonGrid, IonRow, IonCol, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonNote } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { Router, RouterLink } from '@angular/router';
-import * as CryptoJS from 'crypto-js';
-import { callOutline, lockClosedOutline, mailOutline, peopleCircleOutline } from 'ionicons/icons';
+import CryptoES from 'crypto-es'; // Importa desde crypto-es
+import { callOutline, eyeOffOutline, eyeOutline, lockClosedOutline, mailOutline, peopleCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [IonNote,
-    RouterLink, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonImg, IonCol, IonRow, IonGrid, IonInput, IonButton, IonIcon, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule
+  imports: [
+    IonNote, RouterLink, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonImg, IonCol, IonRow, IonGrid, IonInput, IonButton, IonIcon, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule
   ],
 })
 export class RegisterPage {
@@ -32,16 +32,16 @@ export class RegisterPage {
       validator: this.matchingPasswords('password', 'confirmPassword')
     });
 
-
     addIcons({
       peopleCircleOutline,
       mailOutline,
       lockClosedOutline,
-      callOutline
+      callOutline,
+      eyeOffOutline,
+      eyeOutline
     });
   }
 
-  // Verificar que las dos contraseñas proporcionadas en el registro sean iguales
   matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
     return (group: FormGroup) => {
       const passwordInput = group.get(passwordKey);
@@ -54,21 +54,17 @@ export class RegisterPage {
     };
   }
 
-  // Verificar si las contraseñas no coinciden
   passwordsDoNotMatch() {
     const confirmPassword = this.registroForm.get('confirmPassword');
     return confirmPassword?.errors?.['notEquivalent'] && confirmPassword?.touched;
   }
 
-  // Registrar usuario, agregar lógica de backend
   registrar() {
     if (this.registroForm.valid) {
       const formValues = this.registroForm.value;
-      formValues.password = CryptoJS.AES.encrypt(formValues.password, 'secret-key').toString();
-      formValues.confirmPassword = CryptoJS.AES.encrypt(formValues.confirmPassword, 'secret-key').toString();
+      formValues.password = CryptoES.AES.encrypt(formValues.password, 'secret-key').toString();
+      formValues.confirmPassword = CryptoES.AES.encrypt(formValues.confirmPassword, 'secret-key').toString();
       console.log('Form Values:', formValues);
     }
   }
 }
-
-

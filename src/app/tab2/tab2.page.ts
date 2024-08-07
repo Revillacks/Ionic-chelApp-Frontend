@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
-import { ProductsPage } from "../pages/products/products.page";
+import { ProductsPage } from '../features/products/products.page';
 
 @Component({
   selector: 'app-tab2',
