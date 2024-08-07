@@ -17,5 +17,14 @@ import { ChipsCategoryComponent } from "../categories/components/chips-category/
 export class ProductsPage {
   products: Product[] = []
   public productsService = inject(ProductsService)
+
   constructor() { }
+
+  searchProductsByCategory(category: number) {
+    this.productsService.getProductByCategory(category)
+  }
+
+  receiveMessage($event: any) {
+    this.searchProductsByCategory($event)
+  }
 }

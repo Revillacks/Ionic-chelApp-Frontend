@@ -35,4 +35,22 @@ export class ProductsService {
         })
       })
   }
+
+  getProductByCategory(category: number) {
+    this.http.get<Product[]>(`${environment.API_URL}/products?category=${category}`).subscribe(res => {
+
+      this.#state.set({
+        loading: false,
+        products: res
+      })
+    })
+  }
+
+  searchProductByName(name: string) {
+    this.http.get<Product[]>(`${environment.API_URL}/products/search?termino=${name}`)
+  }
+
+  saveProduct(data: { [key: string]: any }) {
+    this.http.post<Product>(`${environment.API_URL}/products`, data)
+  }
 }

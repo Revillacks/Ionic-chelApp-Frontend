@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Category } from '../../models/category.model';
 import { IonicModule } from '@ionic/angular';
 import { CategoryService } from '../../services/category.service';
@@ -8,7 +8,7 @@ import { CategoryService } from '../../services/category.service';
   template: `
   <div class="container-chips">
   @for (category of categoriesService.categories(); track category.id) {
-    <ion-chip>{{category.name}}</ion-chip>
+    <ion-chip (click)="sendCategory(category.id)">{{category.name}}</ion-chip>
   }
 </div>
   `,
@@ -18,12 +18,17 @@ import { CategoryService } from '../../services/category.service';
 })
 export class ChipsCategoryComponent implements OnInit {
 
+  @Output() categoryEvent  = new EventEmitter<number>()
   // @Input() categories !: Category[]
   public categoriesService = inject(CategoryService)
   constructor() { }
 
   ngOnInit() {
     console.log('componente de categories')
+  }
+
+  sendCategory(category: number){
+    this.categoryEvent.emit(category)
   }
 
 }
