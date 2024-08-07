@@ -1,3 +1,8 @@
+ion-content{
+  --background: #0d1b2a;
+  --padding-start: 5px;
+  --padding-end: 5px;
+}
 .menu-container {
   padding: 16px;
   display: flex;
@@ -78,5 +83,5 @@
 }
 
 .secondary {
-  background-color: #795548; 
+  background-color: #795548;
 }

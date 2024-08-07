@@ -1,0 +1,13 @@
+<div class="container">
+  <h2 style="color: white;">Menu</h2>
+  <ion-searchbar animated="true" placeholder="Search products" show-clear-button="focus"></ion-searchbar>
+  <p style="color: white;">Categories</p>
+  <app-chips-category (categoryEvent)="receiveMessage($event)" />
+  <div class="list-products">
+    @for (product of productsService.products(); track product.id) {
+    <app-product-card [product]="product" />
+    }@empty {
+      <h1>Cargando data</h1>
+    }
+  </div>
+</div>
