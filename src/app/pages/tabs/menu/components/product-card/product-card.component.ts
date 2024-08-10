@@ -8,16 +8,22 @@ import { CartService } from '../../../cart/services/cart.service';
 @Component({
   selector: 'app-product-card',
   template: `
-  <ion-card>
-  <ion-img [src]="product.image" alt="{{product.product_name}}"></ion-img>
-  <ion-card-header>
-    <ion-card-title>{{ product.product_name }}</ion-card-title>
-    <ion-card-subtitle>$ {{ product.price }}</ion-card-subtitle>
-    <ion-button  (click)="this.cartService.addItem(product)" shape="round">
-      <ion-icon slot="icon-only" name="add-circle"></ion-icon>
-    </ion-button>
-  </ion-card-header>
-</ion-card>
+      <ion-card>
+        <ion-thumbnail>
+          <ion-img [src]="product.image"></ion-img>
+        </ion-thumbnail>
+
+        <ion-label>
+          <ion-text color="dark"><strong>{{product.product_name}}</strong></ion-text>
+          <p>
+            <ion-text color="dark">
+              $<strong>{{product.price}}</strong>
+            </ion-text>
+
+              <ion-icon class="rating"  (click)="addToCart($event, product)" slot="icon-only" name="add-circle"></ion-icon>
+          </p>
+        </ion-label>
+    </ion-card>
   `,
   standalone: true,
   styleUrls: ['./product-card.component.scss'],
@@ -32,7 +38,10 @@ export class ProductCardComponent implements OnInit {
       addCircle
     })
   }
-
+  addToCart(event: Event, product: Product) {
+    event.stopPropagation(); // Evita que se propague el evento al contenedor, esto para que no abra el modal del detail
+    this.cartService.addItem(product);
+  }
 
   ngOnInit() {
     console.log('Componente que se carga al cargar el component')

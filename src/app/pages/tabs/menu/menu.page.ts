@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductsService } from './services/products.service';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { ChipsCategoryComponent } from "../../../features/categories/components/chips-category/chips-category.component";
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { Product } from 'src/app/models/product.model';
+import { ProductDetailModalComponent } from './components/product-detail-modal/product-detail-modal.component';
 
 @Component({
   selector: 'app-menu',
@@ -16,10 +17,11 @@ import { Product } from 'src/app/models/product.model';
 })
 export class MenuPage {
 
+
   products: Product[] = []
   public productsService = inject(ProductsService)
 
-  constructor() { }
+  constructor(private modalController: ModalController) { }
 
   searchProductsByCategory(category: number) {
     this.productsService.getProductByCategory(category)
@@ -31,5 +33,13 @@ export class MenuPage {
   handleInputSearch(event: any){
     const query = event.target.value.toLowerCase()
     this.productsService.searchProductByName(query)
+  }
+
+  async openProductDetail(product: Product) {
+    const modal = await this.modalController.create({
+      component: ProductDetailModalComponent,
+      componentProps: { product },
+    });
+    return await modal.present();
   }
 }

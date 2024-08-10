@@ -7,6 +7,7 @@ import { CategoryService } from '../../services/category.service';
   selector: 'app-chips-category',
   template: `
   <div class="container-chips">
+    <ion-chip (click)="sendCategory(0)">All</ion-chip>
   @for (category of categoriesService.categories(); track category.id) {
     <ion-chip (click)="sendCategory(category.id)">{{category.name}}</ion-chip>
   }
