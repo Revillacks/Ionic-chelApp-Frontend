@@ -1,0 +1,36 @@
+
+ion-img{
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+  // background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+
+  // @media (min-width: 156px ) {
+  //   height:auto;
+  // }
+}
+
+ion-card{
+  background-color: #1b263b;
+  padding: 10px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+
+}
+ion-card-title{
+  color: white
+}
+
+ion-button{
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  color: white;
+  --background: none
+}
+ion-icon{
+  font-size: 30px;
+}

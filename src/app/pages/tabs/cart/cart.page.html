@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  @for (product of cartService.products(); track product.id) {
+    <app-card-item
+    [product]="product"
+    >
+
+    </app-card-item>
+    }@empty {
+    <h1>Cargando data</h1>
+    }
+
+  <ion-list lines="none" class="billing">
+    <ion-list-header>
+      <ion-label color="tertiary">Details</ion-label>
+    </ion-list-header>
+
+    <ion-item-group>
+      <ion-item>
+        <ion-label color="dark">Item Total</ion-label>
+        <ion-text slot="end" color="dark">
+          ${{totalAmount$ | async}}
+        </ion-text>
+      </ion-item>
+
+
+      <ion-item class="dashedBorderTop">
+        <ion-label color="dark"><strong>To Pay</strong></ion-label>
+        <ion-text slot="end" color="dark">
+          <strong>${{totalAmount$ | async}}</strong>
+        </ion-text>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>
+
+<ion-footer [translucent]="true">
+  <ion-toolbar >
+    <ion-button expand="block" color="primary" mode="ios">
+      Checkout
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
