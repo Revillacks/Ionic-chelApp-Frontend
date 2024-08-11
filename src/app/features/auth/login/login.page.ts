@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { add, eyeOffOutline, eyeOutline, lockClosedOutline, mailOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { AlertController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomePage {
   private alertController: AlertController = inject(AlertController);
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authenticationService: AuthenticationService
   ) {
     this.formLogin = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -71,6 +73,7 @@ export class HomePage {
   }
 
   async iniciar(loginExitoso: boolean) {
+
     const alert = await this.alertController.create({
       header: loginExitoso ? 'Sesión Exitosa' : 'Error de inicio de sesión',
       message: loginExitoso ? 'Has iniciado sesión correctamente.' : 'Por favor, verifica tus credenciales e inténtalo de nuevo.',
@@ -78,12 +81,21 @@ export class HomePage {
         text: 'OK',
         handler: () => {
           if (loginExitoso) {
-            this.router.navigate(['/tabs/tab2']);
+            this.router.navigate(['/menu']);
           }
         }
       }]
     });
 
-    await alert.present();
+    this.authenticationService.userLogin(this.formLogin.value)
+    .subscribe(data => {
+      console.log(data)
+      if(data) {
+        alert.present();
+      }
+    })
+
+
+
   }
 }
