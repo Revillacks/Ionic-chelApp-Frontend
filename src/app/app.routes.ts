@@ -23,4 +23,12 @@ export const routes: Routes = [
       roles: ['admin']
     }
   },
+  {
+    path: 'orders',
+    loadComponent: () => import('./pages/admin/orders/orders.page').then( m => m.OrdersPage),
+    canActivate: [AuthenticationGuard, AuthorizationGuard],
+    data: {
+      roles: ['admin']
+    }
+  },
 ];

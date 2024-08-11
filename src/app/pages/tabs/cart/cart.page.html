@@ -52,7 +52,7 @@
 @if(cartService.products().length > 0){
 <ion-footer [translucent]="true">
   <ion-toolbar>
-    <ion-button expand="block" color="primary" mode="ios">
+    <ion-button (click)="createOrder()" expand="block" color="primary" mode="ios">
       Checkout
     </ion-button>
   </ion-toolbar>
