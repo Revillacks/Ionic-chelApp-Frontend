@@ -321,3 +321,29 @@ ion-fab-button::part(native) {
   left: auto; /* Asegúrate de que el valor 'left' sea auto */
   position: absolute;
 }
+
+// Modal
+/* Tamaño personalizado para el modal */
+.custom-modal {
+  --width: 100%; /* Controla el ancho */
+  --height: 60%; /* Controla la altura */
+  // --max-width: 500px; /* Controla el ancho máximo */
+  --max-height: 80vh; /* Controla la altura máxima */
+  --border-radius: 20px; /* Redondea las esquinas */
+}
+
+/* Tamaño para pantallas grandes (escritorio) */
+@media (min-width: 768px) {
+  .custom-modal {
+    --width: 50%;
+    --max-width: 600px;
+  }
+}
+
+/* Tamaño para pantallas pequeñas (móviles) */
+@media (max-width: 767px) {
+  .custom-modal {
+    --width: 90%;
+    --max-width: 400px;
+  }
+}

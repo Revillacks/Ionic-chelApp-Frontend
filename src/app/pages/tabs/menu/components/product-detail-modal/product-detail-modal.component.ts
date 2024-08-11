@@ -12,7 +12,9 @@ import { Product } from 'src/app/models/product.model';
 export class ProductDetailModalComponent{
 
   @Input() product!: Product;
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController) {
+  }
+
 
   closeModal() {
     this.modalController.dismiss();
