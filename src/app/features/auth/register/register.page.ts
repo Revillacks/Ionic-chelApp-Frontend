@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { FormsModule, ReactiveFormsModule, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonLabel, IonItem, IonIcon, IonButton, IonInput, IonGrid, IonRow, IonCol, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonNote } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { Router, RouterLink } from '@angular/router';
 import CryptoES from 'crypto-es'; // Importa desde crypto-es
 import { callOutline, eyeOffOutline, eyeOutline, lockClosedOutline, mailOutline, peopleCircleOutline } from 'ionicons/icons';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -21,12 +21,16 @@ import { callOutline, eyeOffOutline, eyeOutline, lockClosedOutline, mailOutline,
 export class RegisterPage {
   registroForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private navCtrl: NavController) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private navCtrl: NavController,
+    private authenticationService: AuthenticationService
+  ) {
     this.registroForm = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       correo: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]]
     }, {
       validator: this.matchingPasswords('password', 'confirmPassword')
@@ -62,9 +66,7 @@ export class RegisterPage {
   registrar() {
     if (this.registroForm.valid) {
       const formValues = this.registroForm.value;
-      formValues.password = CryptoES.AES.encrypt(formValues.password, 'secret-key').toString();
-      formValues.confirmPassword = CryptoES.AES.encrypt(formValues.confirmPassword, 'secret-key').toString();
-      console.log('Form Values:', formValues);
+      this.authenticationService.userRegister(formValues).subscribe(data => console.log(data))
     }
   }
 }

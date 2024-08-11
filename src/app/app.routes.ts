@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { AuthenticationGuard } from './common/services/authentication.guard';
+import { AuthorizationGuard } from './common/services/authorization.guard';
 
 export const routes: Routes = [
   {
@@ -15,6 +17,10 @@ export const routes: Routes = [
   },
   {
     path: 'crud',
-    loadComponent: () => import('./features/auth/crud/crud.page').then(m => m.CrudPage)
+    loadComponent: () => import('./features/auth/crud/crud.page').then(m => m.CrudPage),
+    canActivate: [AuthenticationGuard, AuthorizationGuard],
+    data: {
+      roles: ['admin']
+    }
   },
 ];
