@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ product.product_name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="product-detail">
+    <img [src]="product.image" alt="{{ product.product_name }}" />
+    <h2>{{ product.product_name }}</h2>
+    <p>{{ product.description }}</p>
+    <p>Precio: {{ product.price }}</p>
+    <!-- Más detalles según tus necesidades -->
+  </div>
+</ion-content>
