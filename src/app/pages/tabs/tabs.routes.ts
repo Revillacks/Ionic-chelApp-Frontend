@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthenticationGuard } from 'src/app/common/services/authentication.guard';
+import { AuthorizationGuard } from 'src/app/common/services/authorization.guard';
 
 export const routes: Routes = [
   {
@@ -7,9 +9,9 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'home',
+        path: 'profile',
         loadComponent: () =>
-          import('./home/home.page').then((m) => m.HomePage),
+          import('./profile/profile.page').then((m) => m.ProfilePage),
       },
       {
         path: 'menu',
@@ -30,8 +32,18 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/profile',
     pathMatch: 'full',
+  },
+  {
+    path: 'orders',
+    loadComponent: () => import('./orders/orders.page').then( m => m.OrdersPage),
+    canActivate: [AuthenticationGuard, AuthorizationGuard],
+    data: {
+      roles: ['user']
+    }
   }
+
+
 
 ];
