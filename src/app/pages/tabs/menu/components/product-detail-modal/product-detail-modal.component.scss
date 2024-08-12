@@ -4,6 +4,7 @@ ion-card {
   margin: 0 0;
   padding: 0 5px;
   height: 100%;
+  overflow-y: auto;
   border-radius: 8px;
   box-shadow: none;
   border: 1px solid var(--ion-color-light);
