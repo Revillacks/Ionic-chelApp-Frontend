@@ -31,4 +31,15 @@ export const routes: Routes = [
       roles: ['admin']
     }
   },
+  {
+    path: 'addcategory',
+    loadComponent: () => import('./pages/admin/orders/addcategory/addcategory.page').then(m=>m.AddcategoryPage)
+  },
+  {
+    path: 'addroles',
+    loadComponent: () => import('./pages/admin/orders/addroles/addroles.page').then( m => m.AddrolesPage)
+  },
+
+
+
 ];
