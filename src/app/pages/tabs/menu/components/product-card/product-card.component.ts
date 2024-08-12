@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { addCircle } from 'ionicons/icons';
 import { Product } from 'src/app/models/product.model';
@@ -33,7 +33,9 @@ export class ProductCardComponent implements OnInit {
   @Input() product !: Product
   public cartService = inject(CartService)
 
-  constructor() {
+  constructor(
+    private toastController: ToastController
+  ) {
     addIcons({
       addCircle
     })
@@ -41,10 +43,22 @@ export class ProductCardComponent implements OnInit {
   addToCart(event: Event, product: Product) {
     event.stopPropagation(); // Evita que se propague el evento al contenedor, esto para que no abra el modal del detail
     this.cartService.addItem(product);
+    this.presentToast('bottom')
   }
 
   ngOnInit() {
     console.log('Componente que se carga al cargar el component')
+  }
+
+  async presentToast(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.toastController.create({
+      message: 'Producto agregado al carrito correctamente',
+      duration: 1000,
+      position: position,
+      mode: 'ios'
+    });
+
+    await toast.present();
   }
 
 }

@@ -39,7 +39,8 @@ export class MenuPage {
     const modal = await this.modalController.create({
       component: ProductDetailModalComponent,
       componentProps: { product },
-      cssClass: 'custom-modal'
+      cssClass: 'custom-modal',
+      mode: 'ios'
     });
     return await modal.present();
   }
