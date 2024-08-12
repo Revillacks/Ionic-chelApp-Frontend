@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, tap, throwError } from 'rxjs';
+import { ProfileService } from 'src/app/pages/tabs/profile/services/profile.service';
 import { environment } from 'src/environments/environment';
 
 interface AuthenticationRequest {
@@ -49,13 +50,20 @@ export class AuthenticationService {
   API_URL = environment.API_URL;
   isUserLoggedIn = false;
 
-  constructor(private http: HttpClient, private router: Router, public jwtHelper: JwtHelperService) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    public jwtHelper: JwtHelperService,
+    public profileService: ProfileService
+  ) { }
 
   userLogin(request: AuthenticationRequest): Observable<UserResponse> {
-    return this.http.post<UserResponse>(`${this.API_URL}/auth/login`, { ...request, pass: request.password }).pipe(
+    return this.http.post<UserResponse>(`${this.API_URL}/auth/login`, { ...request, pass: request.password })
+    .pipe(
       tap(response => {
         localStorage.setItem(ELookup.TOKEN_NAME, response.token);
         localStorage.setItem("USER", JSON.stringify(response.user));
+        this.profileService.userSubject.next(response.user)
         return response
       })
     )
@@ -66,6 +74,13 @@ export class AuthenticationService {
     const phone_number = "+52" + telefono
     console.log(phone_number)
     return this.http.post<UserResponse>(`${this.API_URL}/auth/register`, { name, email, password, phone_number })
+    .pipe(
+      tap(response => {
+        localStorage.setItem(ELookup.TOKEN_NAME, response.token);
+        localStorage.setItem("USER", JSON.stringify(response.user));
+        return response
+      })
+    )
   }
 
 
@@ -95,9 +110,10 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem(ELookup.TOKEN_NAME);
-    localStorage.removeItem(ELookup.REFRESH_TOKEN_NAME);
+    localStorage.removeItem("USER");
+    this.profileService.userSubject.next({})
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(['']));
+      this.router.navigate(['/profile']));
   }
 
   private handleError(exception: HttpErrorResponse): Observable<never> {
