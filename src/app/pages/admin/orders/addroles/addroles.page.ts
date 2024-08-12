@@ -123,4 +123,3 @@ export class AddrolesPage implements OnInit {
     }
   }
 }
-
