@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, inject } from '@angular/core';
+import { NavController, AlertController } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonLabel, IonItem, IonIcon, IonButton, IonInput, IonGrid, IonRow, IonCol, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonNote } from '@ionic/angular/standalone';
@@ -20,6 +20,10 @@ import { AuthenticationService } from 'src/app/common/services/authentication.se
 })
 export class RegisterPage {
   registroForm: FormGroup;
+  registerCorrect: boolean = false
+
+  private alertController: AlertController = inject(AlertController);
+  private router: Router = inject(Router);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,10 +67,34 @@ export class RegisterPage {
     return confirmPassword?.errors?.['notEquivalent'] && confirmPassword?.touched;
   }
 
-  registrar() {
+  async registrar() {
+
+    if (!this.registroForm.valid) this.registerCorrect = false
+    this.registerCorrect = true
+
+    const alert = await this.alertController.create({
+      header: this.registerCorrect ? 'Registro Exitoso' : 'Error al registrarse',
+      message: this.registerCorrect ? 'Has iniciado sesión correctamente.' : 'Por favor, verifica tus datos e inténtalo de nuevo.',
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          if (this.registerCorrect) {
+            this.router.navigate(['/profile']);
+          }
+        }
+      }]
+    });
+
     if (this.registroForm.valid) {
+
+
       const formValues = this.registroForm.value;
-      this.authenticationService.userRegister(formValues).subscribe(data => console.log(data))
+      this.authenticationService.userRegister(formValues).subscribe(data => {
+        console.log(data)
+        if (data) {
+          alert.present();
+        }
+      })
     }
   }
 }

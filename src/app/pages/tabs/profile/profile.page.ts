@@ -4,8 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { createOutline, listOutline, lockClosedOutline, moonOutline, sunnyOutline } from 'ionicons/icons';
+import { createOutline, listOutline, lockClosedOutline, logOutOutline, moonOutline, sunnyOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -17,17 +19,19 @@ import { Router } from '@angular/router';
 export class ProfilePage {
 
   public router = inject(Router)
+  public authenticationService = inject(AuthenticationService)
 
   public isDarkTheme = false;
   public profileService = inject(ProfileService)
 
-  user: any = {}
+  user !: any
 
   constructor() {
     addIcons({
-      createOutline, listOutline, lockClosedOutline, sunnyOutline, moonOutline
+      createOutline, listOutline, lockClosedOutline, sunnyOutline, moonOutline, logOutOutline
     })
-    this.user = this.profileService.getUserInfo()
+
+    this.profileService.user$.subscribe(data => this.user = data)
   }
 
   toggleTheme() {
@@ -36,11 +40,15 @@ export class ProfilePage {
   }
 
   // Estas por si nos da tiempo de implementarlas
-  editProfile() {}
+  editProfile() { }
 
-  changePassword() {}
+  changePassword() { }
 
   viewOrders() {
     this.router.navigate(['/orders'])
+  }
+
+  redirectToLogin() {
+    this.router.navigate(['/login'])
   }
 }
