@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Roles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-content">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title align="center">---Roles---</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let rol of roles">
+          <ion-icon [name]="getIconoRoles(rol.rol)" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2>{{ rol.usuario }}</h2>
+            <p>{{ rol.rol }}</p>
+            <p>Email: {{ rol.email }}</p>
+          </ion-label>
+          <ion-button (click)="editarRol(rol)" fill="outline" color="secondary">Editar</ion-button>
+          <ion-button (click)="borrarRol(rol.id)" color="danger">Borrar</ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para agregar nuevo rol -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="nuevoRol()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Modal para editar o agregar roles -->
+  <ion-modal [isOpen]="mostrarModal" (didDismiss)="cerrarModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ rolSeleccionado ? 'Editar Rol' : 'Agregar Nuevo Rol' }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-card>
+          <ion-card-content>
+            <form [formGroup]="roleForm" (ngSubmit)="guardarRol()">
+              <ion-item>
+                <ion-label position="floating">Usuario</ion-label>
+                <ion-input formControlName="usuario"></ion-input>
+              </ion-item>
+              <div *ngIf="roleForm.get('usuario')?.invalid && (roleForm.get('usuario')?.dirty || roleForm.get('usuario')?.touched)">
+                <small *ngIf="roleForm.get('usuario')?.errors?.['required']">El usuario es requerido.</small>
+              </div>
+
+              <ion-item class="select-right">
+                <ion-label position="floating">Rol</ion-label>
+                <ion-select formControlName="rol" [interfaceOptions]="rolOptions">
+                  <ion-select-option value="admin">Admin</ion-select-option>
+                  <ion-select-option value="user">User</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div *ngIf="roleForm.get('rol')?.invalid && (roleForm.get('rol')?.dirty || roleForm.get('rol')?.touched)">
+                <small *ngIf="roleForm.get('rol')?.errors?.['required']">El rol es requerido.</small>
+              </div>
+
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+              </ion-item>
+              <div *ngIf="roleForm.get('email')?.invalid && (roleForm.get('email')?.dirty || roleForm.get('email')?.touched)">
+                <small *ngIf="roleForm.get('email')?.errors?.['required']">El email es requerido.</small>
+                <small *ngIf="roleForm.get('email')?.errors?.['email']">Email inválido.</small>
+              </div>
+
+              <ion-button  type="submit" [disabled]="roleForm.invalid">Guardar</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
