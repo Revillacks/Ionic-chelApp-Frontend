@@ -5,6 +5,7 @@ import { ProfileService } from './services/profile.service';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { createOutline, listOutline, lockClosedOutline, moonOutline, sunnyOutline } from 'ionicons/icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,8 @@ import { createOutline, listOutline, lockClosedOutline, moonOutline, sunnyOutlin
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ProfilePage {
+
+  public router = inject(Router)
 
   public isDarkTheme = false;
   public profileService = inject(ProfileService)
@@ -32,15 +35,12 @@ export class ProfilePage {
     document.body.classList.toggle('dark', this.isDarkTheme);
   }
 
-  editProfile() {
-    // Navegar a la página de edición de perfil
-  }
+  // Estas por si nos da tiempo de implementarlas
+  editProfile() {}
 
-  changePassword() {
-    // Navegar a la página de cambio de contraseña
-  }
+  changePassword() {}
 
   viewOrders() {
-    // Navegar a la página de órdenes
+    this.router.navigate(['/orders'])
   }
 }

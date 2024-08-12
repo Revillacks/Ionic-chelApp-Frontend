@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthenticationGuard } from 'src/app/common/services/authentication.guard';
+import { AuthorizationGuard } from 'src/app/common/services/authorization.guard';
 
 export const routes: Routes = [
   {
@@ -32,7 +34,16 @@ export const routes: Routes = [
     path: '',
     redirectTo: '/profile',
     pathMatch: 'full',
+  },
+  {
+    path: 'orders',
+    loadComponent: () => import('./orders/orders.page').then( m => m.OrdersPage),
+    canActivate: [AuthenticationGuard, AuthorizationGuard],
+    data: {
+      roles: ['user']
+    }
   }
+
 
 
 ];

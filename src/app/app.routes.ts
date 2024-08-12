@@ -24,7 +24,7 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'orders',
+    path: 'admin/orders',
     loadComponent: () => import('./pages/admin/orders/orders.page').then( m => m.OrdersPage),
     canActivate: [AuthenticationGuard, AuthorizationGuard],
     data: {

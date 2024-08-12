@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import io, { type Socket } from 'socket.io-client'
-import { DataResponse, Order } from './models/order.model';
+import { DataResponse } from './models/order.model';
 
 @Component({
   selector: 'app-orders',
@@ -15,12 +15,14 @@ import { DataResponse, Order } from './models/order.model';
 })
 export class OrdersPage {
   socket!: Socket
-  event: string = 'get-orders'
+  event: string = 'orders-by-user'
   public orders: DataResponse['orders'] = []
 
   constructor() {
     const user = JSON.parse(localStorage.getItem("USER") ?? "[]")
     const token = localStorage.getItem("sb_s_token")
+
+    console.log(user, token)
 
     this.socket = io('http://localhost:3000', {
       auth: {
@@ -34,17 +36,10 @@ export class OrdersPage {
 
     this.socket.connect()
 
-    this.socket.on(this.event, (data) => {
+    this.socket.on(this.event, (data: DataResponse) => {
       this.orders = data.orders
-      console.log(this.orders)
+      console.log(data, 'orders')
     })
   }
 
-
-  toggleStatus(order: Order) {
-    const {id, status, user} = order
-    const statusValue = status === 'pending' ? 'completed' : 'pending';
-    console.log(statusValue)
-    this.socket.emit('change-status-order', {order_id: id, status: statusValue, user_id: user.id})
-  }
 }
