@@ -78,6 +78,7 @@ export class AuthenticationService {
       tap(response => {
         localStorage.setItem(ELookup.TOKEN_NAME, response.token);
         localStorage.setItem("USER", JSON.stringify(response.user));
+        this.profileService.userSubject.next(response.user)
         return response
       })
     )
