@@ -8,11 +8,26 @@
 </ion-header>
 
 <ion-content>
-  <div class="product-detail">
-    <img [src]="product.image" alt="{{ product.product_name }}" />
-    <h2>{{ product.product_name }}</h2>
-    <p>{{ product.description }}</p>
-    <p>Precio: {{ product.price }}</p>
-    <!-- Más detalles según tus necesidades -->
-  </div>
+  <ion-card>
+    <ion-thumbnail>
+      <ion-img [src]="product.image"></ion-img>
+    </ion-thumbnail>
+
+    <ion-label>
+      <ion-text color="dark"><strong>{{product.product_name}}</strong></ion-text>
+      <ion-text color="dark">
+        $<strong>{{product.price}}</strong>
+      </ion-text>
+    </ion-label>
+    <p>{{product.description}}</p>
+  </ion-card>
+
 </ion-content>
+
+<ion-footer [translucent]="true">
+  <ion-toolbar>
+    <ion-button expand="block" color="primary" mode="ios" (click)="addToCart(product)">
+      Add to cart
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
